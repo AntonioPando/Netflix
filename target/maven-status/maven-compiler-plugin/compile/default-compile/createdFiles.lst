@@ -2,7 +2,9 @@ Models\Clasificacion.class
 Models\Filmografia.class
 Models\Pais.class
 Models\Reparto.class
+DAOs\DAO.class
 DbManager\DbManager.class
+DAOs\FacturaDAO.class
 Main.class
 Models\Genero.class
 Models\Suscripcion.class
