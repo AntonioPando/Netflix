@@ -17,11 +17,11 @@ public abstract class DAO <T>{
     
     protected static Connection conn;
     
-    public abstract void listUno(int id);
-    public abstract void listarTodo();
-    public abstract void insertar(T dato_insertar);
-    public abstract void eliminar(int id);
-    public abstract void actualizar(T dato_actualizar);
+    public abstract void listUno(int id) throws SQLException;
+    public abstract void listarTodo() throws SQLException;
+    public abstract void insertar(T dato_insertar) throws SQLException;
+    public abstract void eliminar(int id) throws SQLException;
+    public abstract void actualizar(T dato_actualizar) throws SQLException;
     
     public abstract void cargarDatos(PreparedStatement stmt, T dato);
     
