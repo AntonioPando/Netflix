@@ -26,6 +26,10 @@ public class Acceso {
         this.tipo_suscripcion_id = tipo_suscripcion_id;
     }
 
+    public Acceso() {
+
+    }
+
     public int getId_acceso() {
         return id_acceso;
     }
