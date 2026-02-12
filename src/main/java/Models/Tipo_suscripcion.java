@@ -10,7 +10,7 @@ package Models;
  * @author bigpa
  */
 public class Tipo_suscripcion {
-    
+
     private int tipo_id;
     private String nombre;
     private double precio;
@@ -54,14 +54,10 @@ public class Tipo_suscripcion {
     public void setDuracion_meses(int duracion_meses) {
         this.duracion_meses = duracion_meses;
     }
-    
-    
 
     @Override
     public String toString() {
         return "Tipo_suscripcion{" + "tipo_id=" + tipo_id + ", nombre=" + nombre + ", precio=" + precio + ", duracion_meses=" + duracion_meses + '}';
     }
-    
-    
-    
+
 }

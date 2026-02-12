@@ -10,7 +10,8 @@ public class Logger {
     private static final String LOG_FILE = "log.txt";
 
     public static void info(String msg) {
-        System.out.println("[INFO] " + timestamp() + " - " + msg);
+        log("INFO", msg);
+ 
     }
 
     public static void error(String msg) {
