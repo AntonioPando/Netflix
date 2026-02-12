@@ -19,7 +19,7 @@ public class Main {
         manager.getConexion().setAutoCommit(false);
 
         PaisDAO paisDAO = new PaisDAO(manager.getConexion());
-        Pais pais = new Pais(6, "España");
+        Pais pais = new Pais(0, "España");
 
       
         //paisDAO.Delete();
