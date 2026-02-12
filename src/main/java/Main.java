@@ -29,7 +29,7 @@ public class Main {
         
         
         RepartoDAO repartoDAO = new RepartoDAO(manager.getConexion());
-        Reparto rep = new Reparto(1, 10, "Leonardo DiCaprio", "Protagonista");
+        Reparto rep = new Reparto(0, 10, "Leonardo DiCaprio", "Protagonista");
 
         
         //repartoDAO.Delete();
