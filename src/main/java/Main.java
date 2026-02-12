@@ -27,7 +27,7 @@ public class Main {
         Reparto rep = new Reparto(0, 10, "Leonardo DiCaprio", "Protagonista");
 
         //paisDAO.Delete();
-        //paisDAO.listarTodo();
+       // paisDAO.listarTodo();
         //paisDAO.insertar(pais);
         //paisDAO.ListOne();
         

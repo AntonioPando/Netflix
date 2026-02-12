@@ -40,7 +40,7 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                convertir(rs);
+                System.out.println(convertir(rs));
                 
             } else {
                 System.out.println("No se encontró la suscripción con ID: " + id);
@@ -62,7 +62,7 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                convertir(rs);
+                 System.out.println(convertir(rs));
                
             }
 

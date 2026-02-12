@@ -39,7 +39,7 @@ public class RepartoDAO extends DAO<Reparto> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                convertir(rs);
+                 System.out.println(convertir(rs));
 
             } else {
                 System.out.println("No se encontró el reparto con ID: " + id);
@@ -61,7 +61,7 @@ public class RepartoDAO extends DAO<Reparto> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                convertir(rs);
+               System.out.println(convertir(rs));
 
             }
 

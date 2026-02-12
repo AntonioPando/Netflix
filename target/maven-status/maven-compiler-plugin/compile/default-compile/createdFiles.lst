@@ -14,6 +14,7 @@ DAOs\RepartoDAO.class
 Models\Film_genero.class
 Models\Factura.class
 Models\Tipo_suscripcion.class
+conf\Logger.class
 Models\Cuenta.class
 DAOs\FilmografiaDAO.class
 Models\Acceso.class

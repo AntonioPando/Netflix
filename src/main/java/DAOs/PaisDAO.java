@@ -38,7 +38,7 @@ public class PaisDAO extends DAO<Pais> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-               convertir(rs);
+                System.out.println(convertir(rs));
             } else {
                 System.out.println("No se encontró el país con id: " + id);
             }
@@ -60,8 +60,8 @@ public class PaisDAO extends DAO<Pais> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                convertir(rs);
-              
+                 System.out.println(convertir(rs));
+             
             }
 
         } catch (SQLException e) {
