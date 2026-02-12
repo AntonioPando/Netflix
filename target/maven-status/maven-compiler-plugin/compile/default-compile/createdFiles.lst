@@ -1,7 +1,10 @@
 Models\Clasificacion.class
 Models\Filmografia.class
+DAOs\AccesoDao.class
+DAOs\PaisDAO.class
 Models\Pais.class
 Models\Reparto.class
+DAOs\DAO.class
 DbManager\DbManager.class
 Main.class
 Models\Genero.class
