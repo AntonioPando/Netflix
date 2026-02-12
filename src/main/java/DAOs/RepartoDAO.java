@@ -135,9 +135,7 @@ public class RepartoDAO extends DAO<Reparto> {
         try {
             stmt = conn.prepareStatement(UPDATE);
 
-            stmt.setInt(1, rep.getId_filmografia());
-            stmt.setString(2, rep.getNombre_actor());
-            stmt.setString(3, rep.getPapel());
+           cargarDatosInsert(stmt, rep);
             stmt.setInt(4, rep.getId_reparto());
 
             int filas = stmt.executeUpdate();
