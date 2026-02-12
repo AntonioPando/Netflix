@@ -19,38 +19,33 @@ public class Main {
         manager.getConexion().setAutoCommit(false);
 
         PaisDAO paisDAO = new PaisDAO(manager.getConexion());
-        Pais pais = new Pais(0, "España");
+        SuscripcionDAO suscripcionDAO = new SuscripcionDAO(manager.getConexion());
+        RepartoDAO repartoDAO = new RepartoDAO(manager.getConexion());
 
-      
+        Pais pais = new Pais(0, "España");
+        Suscripcion sus = new Suscripcion(0, 10, 2, Date.valueOf("2026-02-01"), Date.valueOf("2026-03-01"));
+        Reparto rep = new Reparto(0, 10, "Leonardo DiCaprio", "Protagonista");
+
         //paisDAO.Delete();
         //paisDAO.listarTodo();
         //paisDAO.insertar(pais);
         //paisDAO.ListOne();
         
+        //-------------------------//
         
-        RepartoDAO repartoDAO = new RepartoDAO(manager.getConexion());
-        Reparto rep = new Reparto(0, 10, "Leonardo DiCaprio", "Protagonista");
-
+        //suscripcionDAO.Delete();
+        //suscripcionDAO.listarTodo();
+        //suscripcionDAO.insertar(sus);
+        //suscripcionDAO.ListOne();
+        
+        //-------------------------//
         
         //repartoDAO.Delete();
         //repartoDAO.listarTodo();
         //repartoDAO.insertar(rep);
         //repartoDAO.ListOne();
         
-                SuscripcionDAO suscripcionDAO = new SuscripcionDAO(manager.getConexion());
-                Suscripcion sus = new Suscripcion(1, 10, 2, Date.valueOf("2026-02-01"), Date.valueOf("2026-03-01") );
-
-
-        //suscripcionDAO.Delete();
-        //suscripcionDAO.listarTodo();
-        //suscripcionDAO.insertar(sus);
-        //suscripcionDAO.ListOne();
-
-        
         manager.desconectar();
-        
-        
-
 
     }
 

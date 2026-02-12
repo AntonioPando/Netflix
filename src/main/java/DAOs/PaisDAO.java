@@ -28,7 +28,7 @@ public class PaisDAO extends DAO<Pais> {
             = "SELECT * FROM Pais WHERE id = ?";
 
     @Override
-    public void listUno(int id) {
+    public void listUno(int id) throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -38,11 +38,7 @@ public class PaisDAO extends DAO<Pais> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Pais pais = new Pais(
-                        rs.getInt("id"),
-                        rs.getString("nombre")
-                );
-                System.out.println(pais.toString());
+               convertir(rs);
             } else {
                 System.out.println("No se encontró el país con id: " + id);
             }
@@ -55,7 +51,7 @@ public class PaisDAO extends DAO<Pais> {
     }
 
     @Override
-    public void listarTodo() {
+    public void listarTodo() throws SQLException {
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
@@ -64,11 +60,8 @@ public class PaisDAO extends DAO<Pais> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Pais pais = new Pais(
-                        rs.getInt("id"),
-                        rs.getString("nombre")
-                );
-                System.out.println(pais.toString());
+                convertir(rs);
+              
             }
 
         } catch (SQLException e) {
@@ -79,12 +72,12 @@ public class PaisDAO extends DAO<Pais> {
     }
 
     @Override
-    public void insertar(Pais pais) {
+    public void insertar(Pais pais) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(INSERT);
-            cargarDatosInsert(stmt, pais);
+            cargarDatos(stmt, pais);
             stmt.executeUpdate();
             conn.commit();
 
@@ -99,7 +92,7 @@ public class PaisDAO extends DAO<Pais> {
     }
 
     @Override
-    public void eliminar(int id) {
+    public void eliminar(int id) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
@@ -124,12 +117,13 @@ public class PaisDAO extends DAO<Pais> {
     }
 
     @Override
-    public void actualizar(Pais pais) {
+    public void actualizar(Pais pais) throws SQLException {
         PreparedStatement stmt = null;
 
         try {
             stmt = conn.prepareStatement(UPDATE);
-            cargarDatosUpdate(stmt, pais);
+            cargarDatos(stmt, pais);
+            stmt.setInt(2, pais.getId());
 
             int filas = stmt.executeUpdate();
             conn.commit();
@@ -149,16 +143,26 @@ public class PaisDAO extends DAO<Pais> {
     }
 
     @Override
-    public void cargarDatos(PreparedStatement stmt, Pais dato) {
-        throw new UnsupportedOperationException("No se usa este método.");
+    public void cargarDatos(PreparedStatement stmt, Pais dato) throws SQLException {
+       stmt.setString(1, dato.getNombre());
+    }
+    
+    
+    //Funcion convertir
+    public Pais convertir(ResultSet rs) throws SQLException {
+
+        try { 
+            return new Pais(
+             
+                        rs.getInt("id"),
+                        rs.getString("nombre")
+                );
+           
+        } catch (SQLException e) {
+            throw new SQLException("Error al convertir", e);
+
+        }
     }
 
-    public void cargarDatosInsert(PreparedStatement stmt, Pais pais) throws SQLException {
-        stmt.setString(1, pais.getNombre());
-    }
 
-    public void cargarDatosUpdate(PreparedStatement stmt, Pais pais) throws SQLException {
-        stmt.setString(1, pais.getNombre());
-        stmt.setInt(2, pais.getId());
-    }
 }

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+
 public class SuscripcionDAO extends DAO<Suscripcion> {
 
     public SuscripcionDAO(Connection conn) {
@@ -13,7 +14,7 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
     }
 
     private static final String INSERT =
-        "INSERT INTO suscripcion (id, cuenta_id, tipo_id, fecha_contratacion, fecha_fin) VALUES (?,?,?,?,?)";
+        "INSERT INTO suscripcion (cuenta_id, tipo_id, fecha_contratacion, fecha_fin) VALUES (?,?,?,?)";
 
     private static final String DELETE =
         "DELETE FROM suscripcion WHERE id=?";
@@ -39,14 +40,8 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Suscripcion sus = new Suscripcion(
-                        rs.getInt("id"),
-                        rs.getInt("cuenta_id"),
-                        rs.getInt("tipo_id"),
-                        rs.getDate("fecha_contratacion"),
-                        rs.getDate("fecha_fin")
-                );
-                System.out.println(sus.toString());
+                convertir(rs);
+                
             } else {
                 System.out.println("No se encontró la suscripción con ID: " + id);
             }
@@ -67,14 +62,8 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Suscripcion sus = new Suscripcion(
-                        rs.getInt("id"),
-                        rs.getInt("cuenta_id"),
-                        rs.getInt("tipo_id"),
-                        rs.getDate("fecha_contratacion"),
-                        rs.getDate("fecha_fin")
-                );
-                System.out.println(sus.toString());
+                convertir(rs);
+               
             }
 
         } finally {
@@ -90,11 +79,7 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
         try {
             stmt = conn.prepareStatement(INSERT);
 
-            stmt.setInt(1, sus.getId());
-            stmt.setInt(2, sus.getCuenta_id());
-            stmt.setInt(3, sus.getTipo_id());
-            stmt.setDate(4, sus.getFecha_contratacion());
-            stmt.setDate(5, sus.getFecha_fin());
+        cargarDatos(stmt, sus);
 
             stmt.executeUpdate();
             conn.commit();
@@ -143,10 +128,7 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
         try {
             stmt = conn.prepareStatement(UPDATE);
 
-            stmt.setInt(1, sus.getCuenta_id());
-            stmt.setInt(2, sus.getTipo_id());
-            stmt.setDate(3, sus.getFecha_contratacion());
-            stmt.setDate(4, sus.getFecha_fin());
+               cargarDatos(stmt, sus);
             stmt.setInt(5, sus.getId());
 
             int filas = stmt.executeUpdate();
@@ -166,8 +148,26 @@ public class SuscripcionDAO extends DAO<Suscripcion> {
         }
     }
 
-    @Override
-    public void cargarDatos(PreparedStatement stmt, Suscripcion dato) {
-        throw new UnsupportedOperationException("No se usa este método.");
+     @Override
+    public void cargarDatos(PreparedStatement stmt, Suscripcion dato) throws SQLException {
+        stmt.setInt(1, dato.getCuenta_id());
+        stmt.setInt(2, dato.getTipo_id());
+        stmt.setDate(3, dato.getFecha_contratacion());
+        stmt.setDate(4, dato.getFecha_fin());
+    }
+
+    // Función convertir
+    public Suscripcion convertir(ResultSet rs) throws SQLException {
+        try { 
+            return new Suscripcion(
+                rs.getInt("id"),
+                rs.getInt("cuenta_id"),
+                rs.getInt("tipo_id"),
+                rs.getDate("fecha_contratacion"),
+                rs.getDate("fecha_fin")
+            );
+        } catch (SQLException e) {
+            throw new SQLException("Error al convertir", e);
+        }
     }
 }

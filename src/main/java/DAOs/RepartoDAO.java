@@ -12,20 +12,20 @@ public class RepartoDAO extends DAO<Reparto> {
         super.conn = conn;
     }
 
-    private static final String INSERT = 
-        "INSERT INTO reparto (id_filmografia, nombre_actor, papel) VALUES (?,?,?,?)";
+    private static final String INSERT
+            = "INSERT INTO reparto (id_filmografia, nombre_actor, papel) VALUES (?,?,?)";
 
-    private static final String DELETE = 
-        "DELETE FROM reparto WHERE id_reparto=?";
+    private static final String DELETE
+            = "DELETE FROM reparto WHERE id_reparto=?";
 
-    private static final String UPDATE = 
-        "UPDATE reparto SET id_filmografia=?, nombre_actor=?, papel=? WHERE id_reparto=?";
+    private static final String UPDATE
+            = "UPDATE reparto SET id_filmografia=?, nombre_actor=?, papel=? WHERE id_reparto=?";
 
-    private static final String LISTALL = 
-        "SELECT * FROM reparto";
+    private static final String LISTALL
+            = "SELECT * FROM reparto";
 
-    private static final String LISTONE = 
-        "SELECT * FROM reparto WHERE id_reparto=?";
+    private static final String LISTONE
+            = "SELECT * FROM reparto WHERE id_reparto=?";
 
     @Override
     public void listUno(int id) throws SQLException {
@@ -39,13 +39,8 @@ public class RepartoDAO extends DAO<Reparto> {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Reparto rep = new Reparto(
-                        rs.getInt("id_reparto"),
-                        rs.getInt("id_filmografia"),
-                        rs.getString("nombre_actor"),
-                        rs.getString("papel")
-                );
-                System.out.println(rep.toString());
+                convertir(rs);
+
             } else {
                 System.out.println("No se encontró el reparto con ID: " + id);
             }
@@ -66,13 +61,8 @@ public class RepartoDAO extends DAO<Reparto> {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                Reparto rep = new Reparto(
-                        rs.getInt("id_reparto"),
-                        rs.getInt("id_filmografia"),
-                        rs.getString("nombre_actor"),
-                        rs.getString("papel")
-                );
-                System.out.println(rep.toString());
+                convertir(rs);
+
             }
 
         } finally {
@@ -87,7 +77,7 @@ public class RepartoDAO extends DAO<Reparto> {
 
         try {
             stmt = conn.prepareStatement(INSERT);
-            cargarDatosInsert(stmt, rep);
+            cargarDatos(stmt, rep);
             stmt.executeUpdate();
             conn.commit();
 
@@ -135,7 +125,7 @@ public class RepartoDAO extends DAO<Reparto> {
         try {
             stmt = conn.prepareStatement(UPDATE);
 
-           cargarDatosInsert(stmt, rep);
+            cargarDatos(stmt, rep);
             stmt.setInt(4, rep.getId_reparto());
 
             int filas = stmt.executeUpdate();
@@ -156,14 +146,31 @@ public class RepartoDAO extends DAO<Reparto> {
     }
 
     @Override
-    public void cargarDatos(PreparedStatement stmt, Reparto dato) {
-        throw new UnsupportedOperationException("No se usa este método.");
+    public void cargarDatos(PreparedStatement stmt, Reparto dato) throws SQLException {
+        stmt.setInt(1, dato.getId_filmografia());
+        stmt.setString(2, dato.getNombre_actor());
+        stmt.setString(3, dato.getPapel());
     }
 
-    public void cargarDatosInsert(PreparedStatement stmt, Reparto rep) throws SQLException {
-        
-        stmt.setInt(1, rep.getId_filmografia());
-        stmt.setString(2, rep.getNombre_actor());
-        stmt.setString(3, rep.getPapel());
+    //Funcion convertir
+    public Reparto convertir(ResultSet rs) throws SQLException {
+
+        try { 
+            return new Reparto(
+             
+                        
+                        rs.getInt("id_reparto"),
+                        rs.getInt("id_filmografia"),
+                        rs.getString("nombre_actor"),
+                        rs.getString("papel")
+                );
+               
+           
+        } catch (SQLException e) {
+            throw new SQLException("Error al convertir", e);
+
+        }
     }
+
+
 }

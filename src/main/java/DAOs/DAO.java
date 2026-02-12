@@ -23,9 +23,9 @@ public abstract class DAO <T>{
     public abstract void eliminar(int id) throws SQLException;
     public abstract void actualizar(T dato_actualizar) throws SQLException;
     
-    public abstract void cargarDatos(PreparedStatement stmt, T dato);
+    public abstract void cargarDatos(PreparedStatement stmt, T dato) throws SQLException;
     
-    public void hacerRollback(Connection conn){
+    public void hacerRollback(Connection conn) throws SQLException{
         try {
             conn.rollback();
         } catch (SQLException e){
@@ -33,7 +33,7 @@ public abstract class DAO <T>{
         }
     }
     
-    public void cerrarEstados(PreparedStatement stmt, ResultSet rs){
+    public void cerrarEstados(PreparedStatement stmt, ResultSet rs) throws SQLException {
         if (stmt != null) try {
             stmt.close();
         } catch (SQLException e) {
