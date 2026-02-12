@@ -11,7 +11,6 @@ Models\Genero.class
 Models\Suscripcion.class
 Models\Film_genero.class
 Models\Factura.class
-DAOs\GeneroDAO.class
 Models\Tipo_suscripcion.class
 Models\Cuenta.class
 DAOs\FilmografiaDAO.class

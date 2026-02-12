@@ -1,9 +1,11 @@
 
-import DAOs.FilmografiaDAO;
 import DAOs.PaisDAO;
+import DAOs.RepartoDAO;
+import DAOs.SuscripcionDAO;
 import DbManager.DbManager;
-import Models.Factura;
 import Models.Pais;
+import Models.Reparto;
+import Models.Suscripcion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -16,18 +18,40 @@ public class Main {
         manager.conectar();
         manager.getConexion().setAutoCommit(false);
 
-        //FilmografiaDAO filmografiaDAO = new FilmografiaDAO(manager.getConexion());
         PaisDAO paisDAO = new PaisDAO(manager.getConexion());
-
         Pais pais = new Pais(6, "España");
 
-        //paisDAO.Insert();
+      
         //paisDAO.Delete();
-        paisDAO.listarTodo();
-        //paisDAO.insertar(fact);
+        //paisDAO.listarTodo();
+        //paisDAO.insertar(pais);
         //paisDAO.ListOne();
+        
+        
+        RepartoDAO repartoDAO = new RepartoDAO(manager.getConexion());
+        Reparto rep = new Reparto(1, 10, "Leonardo DiCaprio", "Protagonista");
 
+        
+        //repartoDAO.Delete();
+        //repartoDAO.listarTodo();
+        //repartoDAO.insertar(rep);
+        //repartoDAO.ListOne();
+        
+                SuscripcionDAO suscripcionDAO = new SuscripcionDAO(manager.getConexion());
+                Suscripcion sus = new Suscripcion(1, 10, 2, Date.valueOf("2026-02-01"), Date.valueOf("2026-03-01") );
+
+
+        //suscripcionDAO.Delete();
+        //suscripcionDAO.listarTodo();
+        //suscripcionDAO.insertar(sus);
+        //suscripcionDAO.ListOne();
+
+        
         manager.desconectar();
+        
+        
+
+
     }
 
 }
