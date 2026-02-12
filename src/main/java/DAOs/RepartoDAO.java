@@ -13,7 +13,7 @@ public class RepartoDAO extends DAO<Reparto> {
     }
 
     private static final String INSERT = 
-        "INSERT INTO reparto (id_reparto, id_filmografia, nombre_actor, papel) VALUES (?,?,?,?)";
+        "INSERT INTO reparto (id_filmografia, nombre_actor, papel) VALUES (?,?,?,?)";
 
     private static final String DELETE = 
         "DELETE FROM reparto WHERE id_reparto=?";
@@ -163,10 +163,9 @@ public class RepartoDAO extends DAO<Reparto> {
     }
 
     public void cargarDatosInsert(PreparedStatement stmt, Reparto rep) throws SQLException {
-
-        stmt.setInt(1, rep.getId_reparto());
-        stmt.setInt(2, rep.getId_filmografia());
-        stmt.setString(3, rep.getNombre_actor());
-        stmt.setString(4, rep.getPapel());
+        
+        stmt.setInt(1, rep.getId_filmografia());
+        stmt.setString(2, rep.getNombre_actor());
+        stmt.setString(3, rep.getPapel());
     }
 }
