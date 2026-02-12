@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import DbManager.Logger;
 
 /**
  *
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 public abstract class DAO <T>{
     
     protected static Connection conn;
+    protected static Logger logger = new Logger();
     
     public abstract void listUno(int id) throws SQLException;
     public abstract void listarTodo() throws SQLException;
@@ -25,11 +27,12 @@ public abstract class DAO <T>{
     
     public abstract void cargarDatos(PreparedStatement stmt, T dato);
     
-    public void hacerRollback(Connection conn){
+    public void hacerRollback(Connection conn) throws SQLException{
         try {
             conn.rollback();
         } catch (SQLException e){
-            System.out.println("Error al hacer rollback");
+            logger.info("Mensaje de error");
+            throw new SQLException("Error al hacer rollback" + e.getMessage());
         }
     }
     
